@@ -21,7 +21,7 @@ func (chromeLauncher *ChromeLauncher) Start() error {
 	chromeLauncher.Cmd = exec.Command(path, "--app=https://google.dk", "--user-data-dir="+frontendInstallationPath)
 	err := chromeLauncher.Cmd.Start()
 	if err != nil {
-		println("Warning: Chrome could not start, is it installed?")
+		fmt.Println("Warning: Chrome could not start, is it installed?")
 		return err
 	}
 
@@ -29,7 +29,7 @@ func (chromeLauncher *ChromeLauncher) Start() error {
 	signal.Notify(signalHandler, os.Interrupt)
 	go func() {
 		<-signalHandler // waiting for termination
-		err := chromeLauncher.Shutdown()
+		err = chromeLauncher.Shutdown()
 		if err != nil {
 			fmt.Println(err)
 		}
