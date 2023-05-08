@@ -9,7 +9,7 @@ import (
 )
 
 type ChromeLauncher struct {
-	Cmd exec.Cmd
+	Cmd *exec.Cmd
 }
 
 // Start - starts the chrome launcher, graceful shutdowns should not be neccesary,
@@ -18,7 +18,7 @@ func (chromeLauncher *ChromeLauncher) Start() error {
 	// Start frontend by starting a new Chrome process
 	path := os.Getenv("programfiles") + "\\Google\\Chrome\\Application\\chrome.exe"
 	frontendInstallationPath := os.Getenv("localappdata") + "\\Google\\Chrome\\InstalledApps\\" + "DefaultOrganisationName" + "\\" + "DefaultProjectName"
-	chromeLauncher.Cmd = *exec.Command(path, "--app=https://google.dk", "--user-data-dir="+frontendInstallationPath)
+	chromeLauncher.Cmd = exec.Command(path, "--app=https://google.dk", "--user-data-dir="+frontendInstallationPath)
 	err := chromeLauncher.Cmd.Start()
 	if err != nil {
 		println("Warning: Chrome could not start, is it installed?")
@@ -46,7 +46,7 @@ func (chromeLauncher *ChromeLauncher) Start() error {
 
 // Shutdown - Shuts down the chromeLauncher, if it has started, otherwise gives "chrome process is not running"
 func (chromeLauncher *ChromeLauncher) Shutdown() error {
-	if chromeLauncher.Cmd.Process == nil {
+	if chromeLauncher.Cmd == nil || chromeLauncher.Cmd.Process == nil {
 		return errors.New("chrome process is not running")
 	}
 	err := chromeLauncher.Cmd.Process.Kill()
