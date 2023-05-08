@@ -20,7 +20,7 @@ func TestApplication_Start(test *testing.T) {
 func TestApplication_Shutdown(test *testing.T) {
 	test.Run("Testing Application Shutdown", func(test *testing.T) {
 		app := new(application.Application)
-		result := app.Start().Error()
+		result := app.Shutdown().Error()
 		expected := errors.New("not implemented").Error()
 		helpers.StandardTestChecking(test, result, expected)
 	})
