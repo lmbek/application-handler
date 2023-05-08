@@ -19,7 +19,7 @@ func TestChromiumLauncher_Start(test *testing.T) {
 func TestChromiumLauncher_Shutdown(test *testing.T) {
 	test.Run("Testing ChromiumLauncher Shutdown", func(test *testing.T) {
 		app := new(application.ChromiumLauncher)
-		result := app.Start().Error()
+		result := app.Shutdown().Error()
 		expected := errors.New("not implemented").Error()
 		helpers.StandardTestChecking(test, result, expected)
 	})
