@@ -23,7 +23,7 @@ jobs:
       with:
         go-version: 1.19
         
-    - name: Go Test random package
+    - name: Go Run Tests
       run: go test -v ./tests/...
     
 #    - name: Go Tests utils
